@@ -32,7 +32,7 @@ The Quivr frontend does the same in `scripts/graphql-login.mjs`. Our version is 
 
 `TimeRangeInput` is `{ startTime: Time!, endTime: Time! }` with ISO 8601 times. We send Brussels day boundaries with the offset, for example `2026-11-13T00:00:00+01:00`.
 
-Example (`get_menu`, trimmed):
+Example response shape for `Menu` (illustrative values, not recorded data; replace with an anonymised excerpt from `apps/mcp/fixtures/Menu.json` after `just record-fixtures`):
 
 ```json
 {
