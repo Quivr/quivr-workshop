@@ -1,0 +1,23 @@
+{
+  "name": "evals",
+  "private": true,
+  "type": "module",
+  "version": "0.0.0",
+  "devDependencies": {
+    "@vitest/ui": "5.1.0",
+    "tsx": "4.23.15",
+    "typescript": "6.0.3",
+    "vitest": "5.1.0"
+  },
+  "dependencies": {
+    "agent": "workspace:^",
+    "ai": "7.0.169",
+    "mcp": "workspace:^",
+    "zod": "4.6.7"
+  },
+  "scripts": {
+    "eval": "vitest run",
+    "eval:watch": "vitest --ui --open",
+    "typecheck": "tsc --noEmit"
+  }
+}

@@ -1,0 +1,2 @@
+yarn check-secrets
+yarn lint-staged

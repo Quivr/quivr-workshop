@@ -1,0 +1,6 @@
+**/__generated__/**
+apps/mcp/src/quivr/schema.json
+apps/mcp/fixtures/**
+yarn.lock
+.yarn/
+.traces/

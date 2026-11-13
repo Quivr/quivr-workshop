@@ -1,0 +1,15 @@
+overwrite: true
+schema: src/quivr/schema.json
+documents: src/quivr/queries/*.graphql
+generates:
+  src/quivr/__generated__/graphql.ts:
+    config:
+      enumsAsTypes: true
+      skipTypename: true
+      scalars:
+        ISO8601Date: string
+        Time: string
+        NonEmptyString: string
+        WeekDay: number
+    plugins:
+      - typescript-operations

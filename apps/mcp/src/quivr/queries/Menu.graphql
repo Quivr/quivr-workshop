@@ -1,0 +1,21 @@
+query Menu($restaurantId: ID!, $timeRange: TimeRangeInput!) {
+  restaurants(ids: [$restaurantId]) {
+    id
+    name
+    openingHours(timeRange: $timeRange) {
+      day
+      data {
+        openFrom
+        openUntil
+      }
+    }
+    dishes(timeRange: $timeRange) {
+      name
+      mealCategory
+      prices
+      vegetarian
+      vegan
+      allergens
+    }
+  }
+}

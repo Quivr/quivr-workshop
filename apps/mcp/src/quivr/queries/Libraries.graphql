@@ -1,0 +1,14 @@
+query Libraries {
+  libraries {
+    id
+    name
+    data {
+      capacity
+      occupancy
+      timestamp
+    }
+    location {
+      address
+    }
+  }
+}

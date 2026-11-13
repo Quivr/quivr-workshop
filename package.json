@@ -1,0 +1,41 @@
+{
+  "name": "ask-quivr",
+  "private": true,
+  "type": "module",
+  "description": "Workshop starter: an AI chat assistant on top of the Quivr backend",
+  "packageManager": "yarn@4.14.1",
+  "engines": {
+    "node": ">=24.15.0"
+  },
+  "workspaces": [
+    "apps/*",
+    "evals"
+  ],
+  "scripts": {
+    "dev": "concurrently --kill-others-on-fail --names mcp,agent,web --prefix-colors yellow,cyan,magenta \"yarn workspace mcp dev\" \"yarn workspace agent dev\" \"yarn workspace frontend dev\"",
+    "typecheck": "yarn workspaces foreach -Apt run typecheck",
+    "test": "yarn workspaces foreach -Apt run test",
+    "lint": "eslint . --cache",
+    "format": "prettier --write .",
+    "eval": "yarn workspace evals eval",
+    "eval:watch": "yarn workspace evals eval:watch",
+    "doctor": "yarn workspace agent doctor",
+    "check-secrets": "node scripts/check-secrets.mjs",
+    "prepare": "husky"
+  },
+  "devDependencies": {
+    "@eslint/js": "10.0.1",
+    "@types/node": "24.19.2",
+    "concurrently": "10.0.7",
+    "eslint": "10.14.0",
+    "eslint-config-prettier": "10.1.8",
+    "eslint-plugin-prettier": "5.5.7",
+    "eslint-plugin-react-hooks": "7.1.1",
+    "husky": "9.1.7",
+    "lint-staged": "17.6.0",
+    "prettier": "3.9.10",
+    "prettier-plugin-tailwindcss": "0.8.1",
+    "typescript": "6.0.3",
+    "typescript-eslint": "8.72.2"
+  }
+}

@@ -1,0 +1,45 @@
+{
+  "name": "mcp",
+  "private": true,
+  "type": "module",
+  "version": "0.0.0",
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "1.32.2",
+    "@nestjs/common": "12.4.2",
+    "@nestjs/core": "12.4.2",
+    "@nestjs/platform-express": "12.4.2",
+    "dotenv": "18.0.10",
+    "graphql": "17.1.0",
+    "reflect-metadata": "0.2.2",
+    "rxjs": "7.8.2",
+    "zod": "4.6.7"
+  },
+  "devDependencies": {
+    "@faker-js/faker": "10.6.0",
+    "@graphql-codegen/cli": "8.0.0",
+    "@graphql-codegen/typed-document-node": "8.0.0",
+    "@graphql-codegen/typescript": "7.0.1",
+    "@graphql-codegen/typescript-operations": "7.0.1",
+    "@graphql-typed-document-node/core": "3.2.0",
+    "@modelcontextprotocol/inspector": "2.14.0",
+    "@types/express": "5.0.6",
+    "tsx": "4.23.15",
+    "typescript": "6.0.3",
+    "vitest": "5.1.0"
+  },
+  "scripts": {
+    "dev": "tsx watch --clear-screen=false src/main.ts",
+    "start": "tsx src/main.ts",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "codegen": "graphql-codegen --config codegen.yml",
+    "login": "tsx scripts/login.ts",
+    "logout": "tsx scripts/logout.ts",
+    "record-fixtures": "tsx scripts/record-fixtures.ts",
+    "inspector": "mcp-inspector --transport http --server-url http://localhost:3002/mcp"
+  },
+  "exports": {
+    "./quivr-client": "./src/quivr/quivr-client.ts",
+    "./dates": "./src/quivr/dates.ts"
+  }
+}

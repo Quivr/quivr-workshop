@@ -1,0 +1,23 @@
+query MySchedule($timeRange: TimeRangeInput!) {
+  scheduleItems(
+    scheduleTypes: [LESSON_SCHEDULE, EVENT_SCHEDULE, IMPORTED_EVENT_SCHEDULE]
+    timeRange: $timeRange
+  ) {
+    scheduleItems {
+      __typename
+      id
+      title
+      startTime
+      endTime
+      locations {
+        name
+        address
+      }
+      ... on Lesson {
+        teachers {
+          name
+        }
+      }
+    }
+  }
+}
