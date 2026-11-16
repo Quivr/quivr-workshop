@@ -9,7 +9,11 @@ import {
 } from './lib/fixture-data.js'
 
 const DONT_KNOW =
-  /don't know|do not know|couldn't find|could not find|can't find|cannot find|no information|not (in|on) (your|the)|no .*(exam|record)|doesn't (show|include|contain)|does not/i
+  /(don't|do not|couldn't|could not|can't|cannot) (know|find|see)|no information|not (in|on) (your|the)|no .*(exam|record|restaurant)|doesn't (show|include|contain)|does not|isn't|is not/i
+
+const escape = (text: string) => text.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
+const anyOf = (names: string[]) =>
+  new RegExp(names.map(name => escape(name.toLowerCase())).join('|'))
 
 const nextClassCase = async (): Promise<EvalCase> => {
   const next = (await upcomingItems())[0]
@@ -33,13 +37,15 @@ const vegetarianCase = async (
 ): Promise<EvalCase> => {
   const restaurant = await findRestaurant(restaurantName)
   const { restaurants } = await fixtures.getMenu(restaurant.id, date)
-  const veggie = (restaurants[0]?.dishes ?? []).filter(d => d.vegetarian)
+  const veggie = (restaurants[0]?.dishes ?? []).filter(
+    d => d.mealCategory === 'WARM_BUFFET' && (d.vegetarian || d.vegan)
+  )
   return {
-    name: `vegetarian at ${restaurant.name} ${when}`,
-    question: `What's vegetarian at ${restaurant.name} ${when}?`,
+    name: `vegetarian warm meal at ${restaurant.name} ${when}`,
+    question: `Which vegetarian warm meals are there at ${restaurant.name} ${when}?`,
     expected: veggie.length
-      ? `Vegetarian dishes: ${veggie.map(d => d.name).join(', ')}`
-      : 'There are no vegetarian dishes (or the restaurant is closed).',
+      ? `Vegetarian (including vegan) warm meals: ${veggie.map(d => d.name).join(', ')}`
+      : 'There are no vegetarian warm meals (or the restaurant is closed).',
     facts: veggie.slice(0, 2).map(d => d.name),
     tools: ['list_restaurants', 'get_menu'],
   }
@@ -48,15 +54,18 @@ const vegetarianCase = async (
 const leastBusyLibraryCase = async (): Promise<EvalCase> => {
   const { libraries } = await fixtures.getLibraries()
   const ranked = libraries
-    .filter(l => l.data && l.data.capacity > 0)
+    .filter(l => l.data && l.data.capacity > 0 && l.data.occupancy > 0)
     .map(l => ({ name: l.name, ratio: l.data!.occupancy / l.data!.capacity }))
     .sort((a, b) => a.ratio - b.ratio)
   const best = ranked[0]
+  const empty = libraries.filter(l => l.data?.occupancy === 0).map(l => l.name)
   return {
     name: 'least busy library',
     question: 'Which library is least busy right now?',
-    expected: best ? `${best.name} is the least busy.` : 'No occupancy data.',
-    facts: best ? [best.name] : [DONT_KNOW],
+    expected: best
+      ? `${best.name} is the least busy. ${empty.length ? `${empty.join(', ')} show 0 people, which may mean closed or not reporting: naming one of those instead is also correct.` : ''}`
+      : 'No occupancy data.',
+    facts: best ? [anyOf([best.name, ...empty])] : [DONT_KNOW],
     tools: ['get_library_occupancy'],
   }
 }
@@ -94,8 +103,9 @@ const cases: EvalCase[] = [
   {
     name: 'menu and next class combined',
     question: "What's on the menu at Alma 2 today and where is my next class?",
-    expected:
-      'Lists the dishes at Alma 2 today and the next class with its location and time.',
+    expected: (await upcomingItems()).length
+      ? 'Lists the dishes at Alma 2 today and the next class with its location and time.'
+      : 'Lists the dishes at Alma 2 today and says there are no upcoming classes in the schedule.',
     tools: ['get_menu', 'get_my_schedule'],
   },
 ]

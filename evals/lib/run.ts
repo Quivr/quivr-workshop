@@ -5,7 +5,12 @@ import { runAgent } from 'agent/run-agent'
 
 import { EVAL_MCP_PORT } from './start-mcp.js'
 
-export type ToolCall = { toolName: string; input: unknown; isError: boolean }
+export type ToolCall = {
+  toolName: string
+  input: unknown
+  output: unknown
+  isError: boolean
+}
 export type AgentResult = { text: string; toolCalls: ToolCall[] }
 
 /** The frozen "now" of the fixtures, so every eval sees the same day. */
@@ -36,6 +41,7 @@ export const askAgent = async (
       result.toolCalls.push({
         toolName: part.toolName,
         input: part.input,
+        output: part.type === 'tool-result' ? output : String(part.error),
         isError:
           part.type === 'tool-error' ||
           (typeof output === 'object' &&

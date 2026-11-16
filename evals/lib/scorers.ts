@@ -7,7 +7,11 @@ import type { AgentResult } from './run.js'
 
 export type Score = { name: string; score: number; reason: string }
 
-const normalise = (text: string) => text.toLowerCase().replace(/\s+/g, ' ')
+const normalise = (text: string) =>
+  text
+    .toLowerCase()
+    .replace(/[\u2010-\u2015]/g, '-')
+    .replace(/\s+/g, ' ')
 
 /** Deterministic: every required fact (string or regex) appears in the answer. */
 export const includesFacts = (
@@ -17,8 +21,8 @@ export const includesFacts = (
   const text = normalise(result.text)
   const missing = facts.filter(fact =>
     typeof fact === 'string'
-      ? !text.includes(normalise(fact))
-      : !fact.test(result.text)
+      ? !text.includes(normalise(fact).replace(/[.,;!]+$/, ''))
+      : !fact.test(normalise(result.text))
   )
   return {
     name: 'facts',
@@ -47,6 +51,17 @@ const verdictSchema = z.object({
   reason: z.string().describe('One short sentence'),
 })
 
+const MAX_EVIDENCE_CHARS = 20_000
+
+const toolEvidence = (result: AgentResult): string =>
+  JSON.stringify(
+    result.toolCalls.map(({ toolName, input, output }) => ({
+      toolName,
+      input,
+      output,
+    }))
+  ).slice(0, MAX_EVIDENCE_CHARS)
+
 /** LLM-as-judge: does the answer match the expected answer, without inventing things? */
 export const judge = async (
   question: string,
@@ -57,10 +72,12 @@ export const judge = async (
     model: languageModel(config.judgeModel),
     output: Output.object({ schema: verdictSchema }),
     prompt: `You grade a student assistant. Compare its answer with the expected answer.
-Score 1 if it gives the same key information and invents nothing, 0.5 if partly right, 0 if wrong or made up.
+The tool results are the source of truth: extra details that appear in them (prices, addresses, opening hours) are fine.
+Score 1 if it gives the key information of the expected answer and invents nothing, 0.5 if partly right, 0 if wrong or made up.
 
 Question: ${question}
 Expected answer: ${expected}
+Tool results: ${toolEvidence(result)}
 Assistant answer: ${result.text}`,
   })
   return { name: 'judge', ...output }

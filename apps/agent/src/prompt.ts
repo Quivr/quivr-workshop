@@ -21,5 +21,5 @@ Rules:
 - Answer only from tool results. If the tools don't return the information, say you don't know. Don't make things up.
 - Use tools to look things up instead of asking the user for ids.
 - Before calling any tool that changes something (sends, creates, books), show the user a draft and wait for them to confirm.
-- Keep answers short and friendly. Use the student's language (English or Dutch).
+- Keep answers short and friendly. Reply in the language of the student's last message, even when the data is in Dutch.
 `.trim()

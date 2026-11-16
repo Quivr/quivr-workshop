@@ -5,8 +5,18 @@ import { FIXTURES_DIR } from '../config.js'
 
 type FixtureFile = Record<string, unknown>
 
+const sortKeys = (value: unknown): unknown => {
+  if (Array.isArray(value)) return value.map(sortKeys)
+  if (value === null || typeof value !== 'object') return value
+  return Object.fromEntries(
+    Object.entries(value)
+      .sort(([a], [b]) => a.localeCompare(b))
+      .map(([key, nested]) => [key, sortKeys(nested)])
+  )
+}
+
 export const fixtureKey = (variables: object): string =>
-  JSON.stringify(variables, Object.keys(variables).sort())
+  JSON.stringify(sortKeys(variables))
 
 const fileFor = (operationName: string, dir: string) =>
   join(dir, `${operationName}.json`)

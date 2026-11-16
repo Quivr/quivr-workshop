@@ -107,12 +107,14 @@ Everything stays on your laptop:
 
 A case fails when a deterministic score is below 1. The judge score is reported, not enforced. Results per model are written to `evals/results/`. Expected facts are computed from the fixtures, so the cases stay valid when fixtures are re-recorded.
 
-**Baseline:** not recorded yet. Run `yarn eval` with an API key and fixtures, then fill in this table.
+**Baseline** (fixtures recorded on beta on 2026-11-16, 8 cases per model):
 
 | Model                         | facts | tools | judge |
 | ----------------------------- | ----- | ----- | ----- |
-| `anthropic:claude-haiku-5-5`  | –     | –     | –     |
-| `anthropic:claude-sonnet-5-5` | –     | –     | –     |
+| `anthropic:claude-haiku-5-5`  | 0.94  | 1.00  | 0.88  |
+| `anthropic:claude-sonnet-5-5` | 1.00  | 1.00  | 1.00  |
+
+LLM answers vary, so expect a case or so to flip between runs. Haiku sometimes leaves out a dish that Quivr flags as vegan but not vegetarian; that is a real data-quality question worth discussing, not an eval bug.
 
 We use a small Vitest-based runner instead of Evalite: Evalite 0.19 pins Vitest 4 internals and an older AI SDK provider package, and needs a native SQLite module that compiles from source on Node 24.
 
