@@ -104,9 +104,7 @@ export class QuivrClient {
       method: 'POST',
       headers: {
         'content-type': 'application/json',
-        uid: credentials.uid,
-        client: credentials.client,
-        'access-token': credentials.accessToken,
+        ...credentials,
       },
       body: JSON.stringify({ operationName, query, variables }),
       signal: AbortSignal.timeout(REQUEST_TIMEOUT_MS),

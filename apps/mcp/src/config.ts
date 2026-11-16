@@ -22,13 +22,33 @@ export const loadConfig = (): Config => ({
   port: Number(process.env.MCP_PORT ?? 3002),
   mode: process.env.QUIVR_MODE === 'fixtures' ? 'fixtures' : 'live',
   readOnly: process.env.QUIVR_READ_ONLY !== 'false',
-  baseUrl: process.env.QUIVR_BASE_URL ?? 'https://rails.quivr.be',
+  baseUrl: process.env.QUIVR_BASE_URL ?? 'https://rails-beta.quivr.be',
 })
 
-export type QuivrCredentials = {
-  uid: string
-  client: string
-  accessToken: string
+/** Auth headers to send with every Quivr request. */
+export type QuivrCredentials = Record<string, string>
+
+/**
+ * Builds the auth headers from `.env` values. Quivr accepts either the
+ * `Authorization` header from the login response or the three devise_token_auth
+ * headers; both are sent when present.
+ */
+export const credentialsFrom = (
+  env: Record<string, string | undefined>
+): QuivrCredentials | undefined => {
+  const legacy =
+    env.QUIVR_UID && env.QUIVR_CLIENT && env.QUIVR_ACCESS_TOKEN
+      ? {
+          uid: env.QUIVR_UID,
+          client: env.QUIVR_CLIENT,
+          'access-token': env.QUIVR_ACCESS_TOKEN,
+        }
+      : undefined
+  if (!env.QUIVR_AUTHORIZATION && !legacy) return undefined
+  return {
+    ...legacy,
+    ...(env.QUIVR_AUTHORIZATION && { authorization: env.QUIVR_AUTHORIZATION }),
+  }
 }
 
 /**
@@ -38,13 +58,5 @@ export const readCredentials = (): QuivrCredentials | undefined => {
   const fromFile = existsSync(ENV_FILE)
     ? parseEnv(readFileSync(ENV_FILE, 'utf8'))
     : {}
-  const env = { ...process.env, ...fromFile }
-  if (!env.QUIVR_UID || !env.QUIVR_CLIENT || !env.QUIVR_ACCESS_TOKEN) {
-    return undefined
-  }
-  return {
-    uid: env.QUIVR_UID,
-    client: env.QUIVR_CLIENT,
-    accessToken: env.QUIVR_ACCESS_TOKEN,
-  }
+  return credentialsFrom({ ...process.env, ...fromFile })
 }

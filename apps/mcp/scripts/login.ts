@@ -1,15 +1,17 @@
 import { stdin, stdout } from 'node:process'
 import { createInterface } from 'node:readline/promises'
 
-import { loadConfig } from '../src/config.js'
+import { credentialsFrom, loadConfig } from '../src/config.js'
 import { updateEnvFile } from './env-file.js'
 
 type LoginResponse = {
   success?: boolean
   need_otp?: boolean
   errors?: string[]
-  data?: { user: { email: string }; access_token: string; client: string }
+  data?: { user?: { email?: string }; access_token?: string; client?: string }
 }
+
+type LoginResult = LoginResponse & { authorization: string | null }
 
 const ask = async (question: string, hidden = false): Promise<string> => {
   const rl = createInterface({ input: stdin, output: stdout, terminal: true })
@@ -26,13 +28,14 @@ const ask = async (question: string, hidden = false): Promise<string> => {
   return answer.trim()
 }
 
-const login = async (body: Record<string, string>): Promise<LoginResponse> => {
+const login = async (body: Record<string, string>): Promise<LoginResult> => {
   const response = await fetch(`${loadConfig().baseUrl}/api/login`, {
     method: 'POST',
     headers: { 'content-type': 'application/json' },
     body: JSON.stringify(body),
   })
-  return (await response.json()) as LoginResponse
+  const json = (await response.json().catch(() => ({}))) as LoginResponse
+  return { ...json, authorization: response.headers.get('authorization') }
 }
 
 const { baseUrl } = loadConfig()
@@ -48,18 +51,20 @@ if (result.success === false && result.need_otp) {
   result = await login({ email, password, otp_attempt: otp })
 }
 
-if (!result.data) {
+const values = {
+  QUIVR_AUTHORIZATION: result.authorization ?? '',
+  QUIVR_UID: result.data?.user?.email ?? '',
+  QUIVR_CLIENT: result.data?.client ?? '',
+  QUIVR_ACCESS_TOKEN: result.data?.access_token ?? '',
+}
+if (result.success === false || !credentialsFrom(values)) {
   console.error(
-    `\nLogin failed: ${result.errors?.join(', ') ?? 'unknown error'}`
+    `\nLogin failed: ${result.errors?.join(', ') ?? 'no token in the response'}`
   )
   process.exit(1)
 }
 
-updateEnvFile({
-  QUIVR_UID: result.data.user.email,
-  QUIVR_CLIENT: result.data.client,
-  QUIVR_ACCESS_TOKEN: result.data.access_token,
-})
+updateEnvFile(values)
 console.info(
   '\nLogged in. Token saved to .env. Run `just logout` when you are done.'
 )

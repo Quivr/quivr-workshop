@@ -9,13 +9,14 @@ if (!credentials) {
 
 const response = await fetch(`${loadConfig().baseUrl}/api/logout`, {
   method: 'DELETE',
-  headers: {
-    uid: credentials.uid,
-    client: credentials.client,
-    'access-token': credentials.accessToken,
-  },
+  headers: credentials,
 })
-updateEnvFile({ QUIVR_UID: '', QUIVR_CLIENT: '', QUIVR_ACCESS_TOKEN: '' })
+updateEnvFile({
+  QUIVR_AUTHORIZATION: '',
+  QUIVR_UID: '',
+  QUIVR_CLIENT: '',
+  QUIVR_ACCESS_TOKEN: '',
+})
 
 console.info(
   response.ok

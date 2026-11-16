@@ -3,6 +3,7 @@ import { join } from 'node:path'
 
 import { createMCPClient } from '@ai-sdk/mcp'
 import { generateText } from 'ai'
+import { loadConfig as loadQuivrConfig, readCredentials } from 'mcp/config'
 
 import { config, ROOT_DIR } from './config.js'
 import { languageModel } from './models.js'
@@ -75,23 +76,18 @@ const checks: Check[] = [
         }
         return 'skipped (fixtures mode)'
       }
-      const { QUIVR_BASE_URL, QUIVR_UID, QUIVR_CLIENT, QUIVR_ACCESS_TOKEN } =
-        process.env
-      if (!QUIVR_UID || !QUIVR_CLIENT || !QUIVR_ACCESS_TOKEN) {
+      const { baseUrl } = loadQuivrConfig()
+      const credentials = readCredentials()
+      if (!credentials) {
         fail('Not logged in', 'Run `just login` (or set QUIVR_MODE=fixtures)')
       }
-      const response = await fetch(`${QUIVR_BASE_URL}/graphql`, {
+      const response = await fetch(`${baseUrl}/graphql`, {
         method: 'POST',
-        headers: {
-          'content-type': 'application/json',
-          uid: QUIVR_UID ?? '',
-          client: QUIVR_CLIENT ?? '',
-          'access-token': QUIVR_ACCESS_TOKEN ?? '',
-        },
+        headers: { 'content-type': 'application/json', ...credentials },
         body: JSON.stringify({ query: '{ user { firstName } }' }),
       }).catch(() =>
         fail(
-          `Cannot reach ${QUIVR_BASE_URL}`,
+          `Cannot reach ${baseUrl}`,
           'Check your internet connection, or use QUIVR_MODE=fixtures'
         )
       )

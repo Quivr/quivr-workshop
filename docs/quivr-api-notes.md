@@ -5,18 +5,20 @@ What the workshop starter uses from the Quivr backend (`quivr/backend`, Ruby on 
 ## Endpoint and schema
 
 - One GraphQL endpoint: `POST {QUIVR_BASE_URL}/graphql` (`config/routes.rb`: `post '/graphql', to: 'core/graphql#execute'`).
-- Production: `https://rails.quivr.be` (also `rails-prod.quivr.be`). Beta: `https://rails-beta.quivr.be`.
+- Beta (workshop default): `https://rails-beta.quivr.be`. Test accounts are created at <https://alpha.quivr.be>; the Quivr team then makes your account a Quivr member for full API access.
+- Production: `https://rails.quivr.be` (also `rails-prod.quivr.be`).
+- Docs and a query playground: <https://alpha.quivr.be/graphiql> (members only). It lists every query, mutation and type with descriptions.
 - Schema root types: `app/graphql/root/query_type.rb` and `mutation_type.rb`, split per domain under `app/graphql/types/<domain>/`.
-- Schema snapshot: `apps/mcp/src/quivr/schema.json` is the introspection result committed in `Quivr/Frontend` (`shared/__generated__/graphql.schema.json`). It was generated against beta, so a field that only exists on production may be missing. Refresh it with an introspection query against production if needed.
+- Schema snapshot: `apps/mcp/src/quivr/schema.json` is the introspection result committed in `Quivr/Frontend` (`shared/__generated__/graphql.schema.json`). It was generated against beta, so a field that only exists on production may be missing. Refresh it with an introspection query if needed.
 
 ## Auth
 
 `devise_token_auth` (`config/initializers/devise_token_auth.rb`):
 
-- `POST /api/login` with `{ email, password }` (and `otp_attempt` when the response says `need_otp: true`). The response contains `data.access_token`, `data.client` and `data.user.email`.
-- Every GraphQL request sends three headers: `access-token`, `client`, `uid` (= the email).
+- `POST /api/login` with `{ email, password }` (and `otp_attempt` when the response says `need_otp: true`).
+- The Quivr team says the response has an `Authorization` header to send with every GraphQL request. The body also contains `data.access_token`, `data.client` and `data.user.email`, which work as the three devise headers `access-token`, `client`, `uid` (= the email). `just login` stores both, and `QuivrClient` sends whatever is set.
 - `change_headers_on_each_request = false` and `token_lifespan = 10.years`: the token is stable and can be stored once.
-- `DELETE /api/logout` with the same three headers revokes the token.
+- `DELETE /api/logout` with the same headers revokes the token.
 - The login endpoint is rate limited: 10 attempts per minute per email.
 
 The Quivr frontend does the same in `scripts/graphql-login.mjs`. Our version is `apps/mcp/scripts/login.ts`.

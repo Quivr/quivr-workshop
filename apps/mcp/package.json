@@ -40,6 +40,7 @@
   },
   "exports": {
     "./quivr-client": "./src/quivr/quivr-client.ts",
-    "./dates": "./src/quivr/dates.ts"
+    "./dates": "./src/quivr/dates.ts",
+    "./config": "./src/config.ts"
   }
 }

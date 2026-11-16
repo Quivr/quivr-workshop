@@ -32,9 +32,12 @@ Without `just`, every recipe is a `yarn` script: `corepack enable && yarn instal
 
 ## Logging in to Quivr
 
-`just login` asks for your Quivr email and password (and your one-time code if you use 2FA). It calls `POST https://rails.quivr.be/api/login`, the same login the Quivr app uses, and writes three values to `.env`:
+The workshop uses Quivr's beta backend (`https://rails-beta.quivr.be`). Create a test account at <https://alpha.quivr.be>, then send the user ID from your settings to the Quivr team so they make you a Quivr member (needed for the full API).
+
+`just login` asks for your Quivr email and password (and your one-time code if you use 2FA). It calls `POST {QUIVR_BASE_URL}/api/login`, the same login the Quivr app uses, and writes the token to `.env`:
 
 ```
+QUIVR_AUTHORIZATION=Bearer …
 QUIVR_UID=you@example.com
 QUIVR_CLIENT=…
 QUIVR_ACCESS_TOKEN=…
@@ -63,15 +66,15 @@ Tools are listed over MCP, so a new tool in `apps/mcp` shows up in the agent wit
 
 ### Settings (`.env`)
 
-| Variable                                          | Meaning                                                                                         |
-| ------------------------------------------------- | ----------------------------------------------------------------------------------------------- |
-| `ANTHROPIC_API_KEY`                               | Your group's key.                                                                               |
-| `ALLOWED_MODELS`, `DEFAULT_MODEL`                 | Models the chat may use (`provider:model`). The dropdown shows them.                            |
-| `JUDGE_MODEL`                                     | Model for the LLM-as-judge scorer.                                                              |
-| `QUIVR_MODE`                                      | `live` (real backend) or `fixtures` (recorded data).                                            |
-| `QUIVR_READ_ONLY`                                 | `true` blocks every GraphQL mutation in `QuivrClient`. Set `false` only to really send invites. |
-| `QUIVR_BASE_URL`                                  | Quivr backend, production by default.                                                           |
-| `QUIVR_UID`, `QUIVR_CLIENT`, `QUIVR_ACCESS_TOKEN` | Written by `just login`.                                                                        |
+| Variable                              | Meaning                                                                                         |
+| ------------------------------------- | ----------------------------------------------------------------------------------------------- |
+| `ANTHROPIC_API_KEY`                   | Your group's key.                                                                               |
+| `ALLOWED_MODELS`, `DEFAULT_MODEL`     | Models the chat may use (`provider:model`). The dropdown shows them.                            |
+| `JUDGE_MODEL`                         | Model for the LLM-as-judge scorer.                                                              |
+| `QUIVR_MODE`                          | `live` (real backend) or `fixtures` (recorded data).                                            |
+| `QUIVR_READ_ONLY`                     | `true` blocks every GraphQL mutation in `QuivrClient`. Set `false` only to really send invites. |
+| `QUIVR_BASE_URL`                      | Quivr backend, beta by default.                                                                 |
+| `QUIVR_AUTHORIZATION`, `QUIVR_UID`, … | Written by `just login`.                                                                        |
 
 ## Commands
 

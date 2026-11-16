@@ -1,5 +1,6 @@
 import { afterEach, describe, expect, it, vi } from 'vitest'
 
+import { credentialsFrom } from '../config.js'
 import { QuivrClient, type QuivrClientOptions } from './quivr-client.js'
 
 const QUERIES = {
@@ -27,11 +28,7 @@ const client = (options: Partial<QuivrClientOptions> = {}) =>
     mode: 'live',
     readOnly: true,
     baseUrl: 'https://quivr.test',
-    credentials: () => ({
-      uid: 'student@example.com',
-      client: 'c',
-      accessToken: 't',
-    }),
+    credentials: () => ({ authorization: 'Bearer t' }),
     ...options,
   })
 
@@ -59,22 +56,42 @@ describe('QuivrClient', () => {
     expect(fetch).toHaveBeenCalledOnce()
   })
 
-  it('sends the devise token headers with queries', async () => {
+  it('sends the auth headers with queries', async () => {
     const fetch = respondWith({ restaurants: [] })
 
     await client().request('Restaurants', {})
 
     const init = fetch.mock.calls[0]?.[1]
-    expect(init?.headers).toMatchObject({
-      uid: 'student@example.com',
-      client: 'c',
-      'access-token': 't',
-    })
+    expect(init?.headers).toMatchObject({ authorization: 'Bearer t' })
   })
 
   it('explains how to log in when there is no token', async () => {
     await expect(
       client({ credentials: () => undefined }).request('Restaurants', {})
     ).rejects.toThrow(/just login/)
+  })
+})
+
+describe('credentialsFrom', () => {
+  it('uses the Authorization header from the login response', () => {
+    expect(credentialsFrom({ QUIVR_AUTHORIZATION: 'Bearer t' })).toEqual({
+      authorization: 'Bearer t',
+    })
+  })
+
+  it('falls back to the three devise token headers', () => {
+    expect(
+      credentialsFrom({
+        QUIVR_UID: 'student@example.com',
+        QUIVR_CLIENT: 'c',
+        QUIVR_ACCESS_TOKEN: 't',
+      })
+    ).toEqual({ uid: 'student@example.com', client: 'c', 'access-token': 't' })
+  })
+
+  it('is undefined when the devise headers are incomplete', () => {
+    expect(
+      credentialsFrom({ QUIVR_UID: 'student@example.com' })
+    ).toBeUndefined()
   })
 })
