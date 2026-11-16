@@ -1,0 +1,86 @@
+{
+  "{}": {
+    "restaurants": [
+      {
+        "id": "3",
+        "name": "Alma Groep T",
+        "location": {
+          "name": "Andreas Vesaliusstraat 13 - 3000 Leuven",
+          "address": "Andreas Vesaliusstraat 13 - 3000 Leuven"
+        }
+      },
+      {
+        "id": "5",
+        "name": "Alma 3",
+        "location": {
+          "name": "Steengroevenlaan 3 - 3001 Heverlee",
+          "address": "Steengroevenlaan 3 - 3001 Heverlee"
+        }
+      },
+      {
+        "id": "6",
+        "name": "Alma ESAT2",
+        "location": {
+          "name": "Kasteelpark Arenberg 10 - 3001 Heverlee",
+          "address": "Kasteelpark Arenberg 10 - 3001 Heverlee"
+        }
+      },
+      {
+        "id": "7",
+        "name": "Alma De Moete",
+        "location": {
+          "name": "Celestijnenlaan 200 P - 3001 Heverlee",
+          "address": "Celestijnenlaan 200 P - 3001 Heverlee"
+        }
+      },
+      {
+        "id": "8",
+        "name": "Alma Gasthuisberg",
+        "location": {
+          "name": "Herestraat 49, ALO-Toren (tower) - 3000 Leuven",
+          "address": "Herestraat 49, ALO-Toren (tower) - 3000 Leuven"
+        }
+      },
+      {
+        "id": "1",
+        "name": "Alma 1",
+        "location": {
+          "name": "Tiensestraat 115 - 3000 Leuven",
+          "address": "Tiensestraat 115 - 3000 Leuven"
+        }
+      },
+      {
+        "id": "4",
+        "name": "Alma 't Academisch kwartier",
+        "location": {
+          "name": "Tiensestraat 41 - 3000 Leuven",
+          "address": "Tiensestraat 41 - 3000 Leuven"
+        }
+      },
+      {
+        "id": "2",
+        "name": "Alma 2",
+        "location": {
+          "name": "E. Van Evenstraat 2 - 3000 Leuven",
+          "address": "E. Van Evenstraat 2 - 3000 Leuven"
+        }
+      },
+      {
+        "id": "40",
+        "name": "Alma GHB Sandwich Corner",
+        "location": {
+          "name": "Herestraat 49, ALO-Toren (tower) - 3000 Leuven",
+          "address": "Herestraat 49, ALO-Toren (tower) - 3000 Leuven"
+        }
+      },
+      {
+        "id": "41",
+        "name": "Alma Quadrivium",
+        "location": {
+          "name": "Celestijnenlaan 200 H - 3001 Heverlee",
+          "address": "Celestijnenlaan 200 H - 3001 Heverlee"
+        }
+      }
+    ]
+  }
+}

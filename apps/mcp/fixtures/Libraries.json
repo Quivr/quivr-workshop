@@ -1,0 +1,390 @@
+{
+  "{}": {
+    "libraries": [
+      {
+        "id": "2",
+        "name": "2Bergen - Campus Arenberg",
+        "data": {
+          "capacity": 700,
+          "occupancy": 171,
+          "timestamp": "2026-11-16T09:27:03Z"
+        },
+        "location": {
+          "address": "Willem de Croylaan 6, 3001 Heverlee"
+        }
+      },
+      {
+        "id": "8",
+        "name": "2Bergen - Learning centre Désiré Collen",
+        "data": {
+          "capacity": 400,
+          "occupancy": 154,
+          "timestamp": "2026-11-16T09:27:03Z"
+        },
+        "location": {
+          "address": "2Bergen – Leercentrum Désiré Collen"
+        }
+      },
+      {
+        "id": "13",
+        "name": "Artes – Erasmushuis",
+        "data": {
+          "capacity": 220,
+          "occupancy": 159,
+          "timestamp": "2026-11-16T09:27:03Z"
+        },
+        "location": {
+          "address": "Blijde Inkomststraat 21, 3000 Leuven"
+        }
+      },
+      {
+        "id": "14",
+        "name": "Artes – Universiteitsbibliotheek",
+        "data": {
+          "capacity": 270,
+          "occupancy": 92,
+          "timestamp": "2026-11-16T09:27:03Z"
+        },
+        "location": {
+          "address": "Mgr. Ladeuzeplein 21, 3000 Leuven"
+        }
+      },
+      {
+        "id": "15",
+        "name": "Bijzondere Collecties",
+        "data": {
+          "capacity": 0,
+          "occupancy": 0,
+          "timestamp": "2026-11-16T09:27:03Z"
+        },
+        "location": {
+          "address": "Mgr. Ladeuzeplein 21 - bus 5591, 3000 Leuven"
+        }
+      },
+      {
+        "id": "19",
+        "name": "Vleminckxveld Economics and Business",
+        "data": {
+          "capacity": 450,
+          "occupancy": 168,
+          "timestamp": "2026-11-16T09:27:03Z"
+        },
+        "location": {
+          "address": "Naamsestraat 69, BE-3000 Leuven"
+        }
+      },
+      {
+        "id": "21",
+        "name": "Institute of Philosophy",
+        "data": {
+          "capacity": 75,
+          "occupancy": 22,
+          "timestamp": "2026-11-16T09:27:03Z"
+        },
+        "location": {
+          "address": "Kardinaal Mercierplein 2, B-3000 Leuven"
+        }
+      },
+      {
+        "id": "22",
+        "name": "Learning Centre AGORA",
+        "data": {
+          "capacity": 500,
+          "occupancy": 223,
+          "timestamp": "2026-11-16T09:27:03Z"
+        },
+        "location": {
+          "address": "E. Van Evenstraat 4, B-3000 Leuven"
+        }
+      },
+      {
+        "id": "23",
+        "name": "MATRIX",
+        "data": {
+          "capacity": 0,
+          "occupancy": 0,
+          "timestamp": "2026-11-16T09:27:03Z"
+        },
+        "location": {
+          "address": "Minderbroedersstraat 48, 3000 Leuven"
+        }
+      },
+      {
+        "id": "24",
+        "name": "Maurits Sabbe (Theology)",
+        "data": {
+          "capacity": 120,
+          "occupancy": 48,
+          "timestamp": "2026-11-16T09:27:03Z"
+        },
+        "location": {
+          "address": "Charles Deberiotstraat 26, bus 3102, BE-3000 Leuven"
+        }
+      },
+      {
+        "id": "26",
+        "name": "Vleminckxveld Psychology and Educational Sciences",
+        "data": {
+          "capacity": 250,
+          "occupancy": 0,
+          "timestamp": "2026-11-16T09:27:03Z"
+        },
+        "location": {
+          "address": "Dekenstraat 2 bus 3750, 3000 Leuven"
+        }
+      },
+      {
+        "id": "27",
+        "name": "Law and criminology",
+        "data": {
+          "capacity": 360,
+          "occupancy": 166,
+          "timestamp": "2026-11-16T09:27:03Z"
+        },
+        "location": {
+          "address": "Tiensestraat 41, B-3000 Leuven"
+        }
+      },
+      {
+        "id": "28",
+        "name": "Vleminckxveld Social Sciences",
+        "data": {
+          "capacity": 126,
+          "occupancy": 47,
+          "timestamp": "2026-11-16T09:27:03Z"
+        },
+        "location": {
+          "address": "Parkstraat 45 - bus 3604, 3000 Leuven"
+        }
+      },
+      {
+        "id": "60",
+        "name": "Studio Start Leuven",
+        "data": {
+          "capacity": 0,
+          "occupancy": 0,
+          "timestamp": "2026-11-16T09:27:03Z"
+        },
+        "location": {
+          "address": null
+        }
+      },
+      {
+        "id": "62",
+        "name": "Onthaal Faculteit Letteren",
+        "data": {
+          "capacity": 0,
+          "occupancy": 0,
+          "timestamp": "2026-11-16T09:27:03Z"
+        },
+        "location": {
+          "address": "Blijde Inkomststraat 21, 3000 Leuven"
+        }
+      },
+      {
+        "id": "63",
+        "name": "PC-lab 200C",
+        "data": {
+          "capacity": 0,
+          "occupancy": 0,
+          "timestamp": "2026-11-16T09:27:03Z"
+        },
+        "location": {
+          "address": null
+        }
+      },
+      {
+        "id": "64",
+        "name": "PC-lab ALO",
+        "data": {
+          "capacity": 0,
+          "occupancy": 0,
+          "timestamp": "2026-11-16T09:27:03Z"
+        },
+        "location": {
+          "address": null
+        }
+      },
+      {
+        "id": "79",
+        "name": "Limel",
+        "data": {
+          "capacity": 0,
+          "occupancy": 0,
+          "timestamp": "2026-11-16T09:27:03Z"
+        },
+        "location": {
+          "address": "Kapeldreef 62, 3001 Leuven"
+        }
+      },
+      {
+        "id": "80",
+        "name": "EBIB - Datahub",
+        "data": {
+          "capacity": 0,
+          "occupancy": 0,
+          "timestamp": "2026-11-16T09:27:03Z"
+        },
+        "location": {
+          "address": null
+        }
+      },
+      {
+        "id": "82",
+        "name": "Faculteit Economie en Bedrijfswetenschappen Campus Leuven (Administratie)",
+        "data": {
+          "capacity": 0,
+          "occupancy": 0,
+          "timestamp": "2026-11-16T09:27:03Z"
+        },
+        "location": {
+          "address": null
+        }
+      },
+      {
+        "id": "83",
+        "name": "Faculteit Economie en Bedrijfswetenschappen Campus Leuven (Research)",
+        "data": {
+          "capacity": 0,
+          "occupancy": 0,
+          "timestamp": "2026-11-16T09:27:03Z"
+        },
+        "location": {
+          "address": null
+        }
+      },
+      {
+        "id": "84",
+        "name": "Faculteit Letteren",
+        "data": {
+          "capacity": 0,
+          "occupancy": 0,
+          "timestamp": "2026-11-16T09:27:03Z"
+        },
+        "location": {
+          "address": null
+        }
+      },
+      {
+        "id": "85",
+        "name": "Faculteit Letteren ICT",
+        "data": {
+          "capacity": 0,
+          "occupancy": 0,
+          "timestamp": "2026-11-16T09:27:03Z"
+        },
+        "location": {
+          "address": null
+        }
+      },
+      {
+        "id": "86",
+        "name": "Faculteit Psychologie en Pedagogische Wetenschappen ICT",
+        "data": {
+          "capacity": 0,
+          "occupancy": 0,
+          "timestamp": "2026-11-16T09:27:03Z"
+        },
+        "location": {
+          "address": null
+        }
+      },
+      {
+        "id": "87",
+        "name": "Faculty of Arts",
+        "data": {
+          "capacity": 0,
+          "occupancy": 0,
+          "timestamp": "2026-11-16T09:27:03Z"
+        },
+        "location": {
+          "address": null
+        }
+      },
+      {
+        "id": "88",
+        "name": "Group HW ICT",
+        "data": {
+          "capacity": 0,
+          "occupancy": 0,
+          "timestamp": "2026-11-16T09:27:03Z"
+        },
+        "location": {
+          "address": "Blijde-inkomstraat 5, 3000 Leuven"
+        }
+      },
+      {
+        "id": "91",
+        "name": "Faculty Social Sciences",
+        "data": {
+          "capacity": 0,
+          "occupancy": 0,
+          "timestamp": "2026-11-16T09:27:03Z"
+        },
+        "location": {
+          "address": null
+        }
+      },
+      {
+        "id": "93",
+        "name": "Instituut voor de Overheid ",
+        "data": {
+          "capacity": 0,
+          "occupancy": 0,
+          "timestamp": "2026-11-16T09:27:03Z"
+        },
+        "location": {
+          "address": null
+        }
+      },
+      {
+        "id": "139",
+        "name": "Faculty of Engineering Technology - Campus Groep T",
+        "data": {
+          "capacity": 0,
+          "occupancy": 0,
+          "timestamp": "2026-11-16T09:27:03Z"
+        },
+        "location": {
+          "address": null
+        }
+      },
+      {
+        "id": "140",
+        "name": "Faculty of Engineering Technology - Dean’s Office",
+        "data": {
+          "capacity": 0,
+          "occupancy": 0,
+          "timestamp": "2026-11-16T09:27:03Z"
+        },
+        "location": {
+          "address": null
+        }
+      },
+      {
+        "id": "174",
+        "name": "Reflectiekamers van het Hollands College",
+        "data": {
+          "capacity": 0,
+          "occupancy": 0,
+          "timestamp": "2026-11-16T09:27:03Z"
+        },
+        "location": {
+          "address": null
+        }
+      },
+      {
+        "id": "175",
+        "name": "Faculty of Economics and Business – Antwerp",
+        "data": {
+          "capacity": 0,
+          "occupancy": 0,
+          "timestamp": "2026-11-16T09:27:03Z"
+        },
+        "location": {
+          "address": null
+        }
+      }
+    ]
+  }
+}
