@@ -96,6 +96,40 @@ describe('get_menu', () => {
       dishes: [{ name: 'Lasagne', vegetarian: true }],
     })
   })
+
+  it('marks vegan dishes as vegetarian and trims names', async () => {
+    const quivr = fakeQuivr({
+      getMenu: async () =>
+        ({
+          restaurants: [
+            {
+              id: '3',
+              name: 'Alma 2',
+              openingHours: [],
+              dishes: [
+                {
+                  name: 'Spaghetti bolognese. ',
+                  mealCategory: 'WARM_BUFFET',
+                  prices: [6.35],
+                  vegetarian: false,
+                  vegan: true,
+                  allergens: [],
+                },
+              ],
+            },
+          ],
+        }) as never,
+    })
+
+    const result = await getMenu.run(
+      { restaurantId: '3', date: '2026-11-13' },
+      quivr
+    )
+
+    expect(result).toMatchObject({
+      dishes: [{ name: 'Spaghetti bolognese', vegetarian: true, vegan: true }],
+    })
+  })
 })
 
 describe('get_library_occupancy', () => {

@@ -111,10 +111,10 @@ A case fails when a deterministic score is below 1. The judge score is reported,
 
 | Model                         | facts | tools | judge |
 | ----------------------------- | ----- | ----- | ----- |
-| `anthropic:claude-haiku-5-5`  | 0.94  | 1.00  | 0.88  |
-| `anthropic:claude-sonnet-5-5` | 1.00  | 1.00  | 1.00  |
+| `anthropic:claude-haiku-5-5`  | 1.00  | 1.00  | 1.00  |
+| `anthropic:claude-sonnet-5-5` | 1.00  | 1.00  | 0.94  |
 
-LLM answers vary, so expect a case or so to flip between runs. Haiku sometimes leaves out a dish that Quivr flags as vegan but not vegetarian; that is a real data-quality question worth discussing, not an eval bug.
+LLM answers vary, so expect a case or so to flip between runs. Example of a fix found this way: Quivr flags some dishes as vegan but not vegetarian, and Haiku then left them out. `get_menu` now marks vegan dishes as vegetarian too.
 
 We use a small Vitest-based runner instead of Evalite: Evalite 0.19 pins Vitest 4 internals and an older AI SDK provider package, and needs a native SQLite module that compiles from source on Node 24.
 

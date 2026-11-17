@@ -5,7 +5,7 @@ import { dateSchema, defineTool } from './define-tool.js'
 export const getMenu = defineTool({
   name: 'get_menu',
   description:
-    'Get the menu of one student restaurant on one day: opening hours and dishes with prices (EUR, student price first), vegetarian/vegan flags and allergens. Get the restaurant id from list_restaurants first.',
+    'Get the menu of one student restaurant on one day: opening hours and dishes with prices (EUR, student price first), vegetarian/vegan flags (vegan dishes count as vegetarian) and allergens. Get the restaurant id from list_restaurants first.',
   inputSchema: {
     restaurantId: z.string().describe('Restaurant id from list_restaurants'),
     date: dateSchema.describe('Day, YYYY-MM-DD'),
@@ -22,10 +22,10 @@ export const getMenu = defineTool({
         day.data.map(slot => `${slot.openFrom}-${slot.openUntil}`)
       ),
       dishes: restaurant.dishes.map(dish => ({
-        name: dish.name,
+        name: dish.name.trim().replace(/[.,;]+$/, ''),
         category: dish.mealCategory,
         prices: dish.prices,
-        vegetarian: dish.vegetarian,
+        vegetarian: dish.vegetarian || dish.vegan,
         vegan: dish.vegan,
         allergens: dish.allergens,
       })),
